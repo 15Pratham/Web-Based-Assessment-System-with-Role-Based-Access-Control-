@@ -15,5 +15,4 @@ urlpatterns = [
     path('past-attempts/', views.past_attempts, name='past_attempts'),
     path('join-quiz/', join_quiz, name='join_quiz'),
     path('available/', available_quizzes, name='available_quizzes'),
-    path('quiz/<int:quiz_id>/delete/', views.delete_quiz, name='delete_quiz'),
 ]

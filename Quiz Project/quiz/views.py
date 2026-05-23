@@ -4,7 +4,6 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from django.http import HttpResponse
-import matplotlib
 from reportlab.pdfgen import canvas
 import random
 import string
@@ -25,7 +24,7 @@ def create_quiz(request):
         if form.is_valid():
             quiz = form.save(commit=False) 
             quiz.created_by = request.user 
-            quiz.is_published = True 
+            quiz.is_published = True  # Automatically publish on creation for ease of use
             quiz.save() 
             return redirect('add_question', quiz_id=quiz.id)
     else:
@@ -170,6 +169,7 @@ def attempt_quiz(request, quiz_id):
             percentage=percentage
         )
 
+        # Recalculate ranks for this quiz
         attempts = Attempt.objects.filter(quiz=quiz).order_by('-score')
         for index, attempt_obj in enumerate(attempts):
             attempt_obj.rank = index + 1
@@ -214,68 +214,3 @@ def join_quiz(request):
             messages.error(request, f"Invalid or Unpublished Quiz Code: {code}")
             return redirect('student_dashboard')
     return redirect('student_dashboard')
-
-from django.shortcuts import get_object_or_404
-
-@login_required
-def delete_quiz(request, quiz_id):
-    quiz = get_object_or_404(Quiz, id=quiz_id, created_by=request.user)
-
-    if request.method == "POST":
-        quiz.delete()
-        messages.success(request, "Quiz deleted successfully.")
-        return redirect("teacher_dashboard")
-
-    return redirect("teacher_dashboard")
-
-import os
-import matplotlib
-matplotlib.use('Agg')
-import matplotlib.pyplot as plt
-from django.conf import settings
-from django.db.models import Avg
-
-@login_required
-def teacher_dashboard(request):
-    quizzes = Quiz.objects.filter(created_by=request.user)
-
-    total_quizzes = quizzes.count()
-    total_questions = Question.objects.filter(quiz__in=quizzes).count()
-    total_attempts = Attempt.objects.filter(quiz__in=quizzes).count()
-
-    labels = []
-    data = []
-
-    for quiz in quizzes:
-        avg_score = Attempt.objects.filter(quiz=quiz).aggregate(
-            Avg('percentage')
-        )['percentage__avg']
-
-        labels.append(quiz.title)
-        data.append(round(avg_score, 2) if avg_score else 0)
-
-    # Create media folder if not exists
-    if not os.path.exists(settings.MEDIA_ROOT):
-        os.makedirs(settings.MEDIA_ROOT)
-
-    # Generate chart
-    if labels:
-        plt.figure(figsize=(6,4))
-        plt.bar(labels, data)
-        plt.xlabel("Quizzes")
-        plt.ylabel("Average Score (%)")
-        plt.title("Quiz Performance")
-
-        chart_path = os.path.join(settings.MEDIA_ROOT, "quiz_chart.png")
-        plt.tight_layout()
-        plt.savefig(chart_path)
-        plt.close()
-
-    context = {
-        'total_quizzes': total_quizzes,
-        'total_questions': total_questions,
-        'total_attempts': total_attempts,
-        'quizzes': quizzes,
-    }
-
-    return render(request, 'accounts/teacher_dashboard.html', context)
