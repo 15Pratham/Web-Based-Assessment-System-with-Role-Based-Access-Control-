@@ -1,58 +1,305 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>{{ quiz.title }}</title>
+    <title>{{ quiz.title }} - Coding MCQ</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <style>
+        body { 
+            margin: 0; min-height: 100vh; 
+            font-family: 'Poppins', sans-serif; 
+            background-color: #0F172A; 
+            color: #F1F5F9; 
+            padding-bottom: 50px;
+        }
+        
+        .navbar-custom { background-color: #1E293B; border-bottom: 1px solid #334155; }
+        
+        .glass-card { 
+            background: #1E293B; 
+            border-radius: 20px; 
+            padding: 30px; 
+            box-shadow: 0 6px 25px rgba(0,0,0,0.4); 
+            border: 1px solid #334155; 
+            margin-bottom: 30px;
+        }
+        
+        .btn-glow { 
+            background: linear-gradient(135deg, #2563EB, #3B82F6); 
+            border: none; 
+            border-radius: 30px; 
+            padding: 15px 40px; 
+            font-weight: 600; 
+            font-size: 1.1rem;
+            transition: 0.3s ease; 
+            text-decoration: none; 
+            color: white; 
+            display: inline-block; 
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
+        }
+        
+        .btn-glow:hover { 
+            background: linear-gradient(135deg, #1D4ED8, #2563EB);
+            box-shadow: 0 8px 25px rgba(37, 99, 235, 0.6); 
+            color: white; 
+            transform: translateY(-2px);
+        }
+
+        .question-number {
+            color: #3B82F6;
+            font-weight: 800;
+            font-size: 1.2rem;
+            margin-right: 10px;
+        }
+
+        .question-text {
+            font-size: 1.15rem;
+            font-weight: 500;
+            line-height: 1.5;
+        }
+
+        .marks-badge {
+            background-color: rgba(16, 185, 129, 0.15);
+            color: #10B981;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 20px;
+            padding: 5px 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-left: 15px;
+            vertical-align: middle;
+        }
+
+        /* Custom Radio Buttons */
+        .form-check-input {
+            display: none;
+        }
+
+        .option-card {
+            display: block;
+            padding: 16px 24px;
+            border: 1px solid #334155;
+            border-radius: 14px;
+            margin-top: 12px;
+            cursor: pointer;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .option-card:hover {
+            border-color: #3B82F6;
+            background: rgba(59, 130, 246, 0.05);
+            transform: translateX(4px);
+        }
+
+        .form-check-input:checked + .option-card {
+            border-color: #3B82F6;
+            background: rgba(59, 130, 246, 0.1);
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.15);
+        }
+
+        .radio-circle {
+            width: 22px; 
+            height: 22px;
+            border-radius: 50%;
+            border: 2px solid #64748B;
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            transition: 0.2s;
+            flex-shrink: 0;
+        }
+
+        .form-check-input:checked + .option-card .radio-circle {
+            border-color: #3B82F6;
+        }
+
+        .form-check-input:checked + .option-card .radio-circle::after {
+            content: '';
+            width: 10px; 
+            height: 10px;
+            border-radius: 50%;
+            background-color: #3B82F6;
+            animation: popIn 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        .option-text {
+            color: #CBD5E1;
+            font-size: 1.05rem;
+            transition: 0.2s;
+        }
+
+        .form-check-input:checked + .option-card .option-text {
+            color: #F8FAFC;
+            font-weight: 500;
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0); }
+            100% { transform: scale(1); }
+        }
+
+        /* Timer Styles */
+        .quiz-timer-card {
+            background: rgba(30, 41, 59, 0.85);
+            backdrop-filter: blur(10px);
+            border: 1px solid #334155;
+            border-radius: 12px;
+            padding: 12px 24px;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            transition: all 0.3s ease;
+        }
+        
+        .timer-text {
+            font-size: 1.4rem;
+            font-weight: 800;
+            font-family: monospace;
+            color: #F8FAFC;
+            letter-spacing: 1px;
+        }
+        
+        .timer-icon {
+            font-size: 1.3rem;
+            color: #3B82F6;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+        
+        .timer-warning {
+            border-color: rgba(239, 68, 68, 0.5);
+            background: rgba(239, 68, 68, 0.1);
+        }
+        
+        .timer-warning .timer-text, 
+        .timer-warning .timer-icon {
+            color: #EF4444;
+        }
+
+        .quiz-header {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .quiz-header h1 {
+            font-weight: 800;
+            background: linear-gradient(135deg, #F8FAFC, #94A3B8);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
+<body>
 
-<body class="bg-light">
+<nav class="navbar navbar-dark navbar-custom px-4 py-3">
+    <a class="navbar-brand fw-bold" href="{% url 'student_dashboard' %}">⚡ Coding MCQ</a>
+    <a href="{% url 'student_dashboard' %}" class="btn-glow" style="padding: 8px 20px; font-size: 0.95rem;">🔙 Exit Quiz</a>
+</nav>
 
-<div class="container mt-5">
+<div class="container" style="max-width: 850px; position: relative;">
 
-    <div class="card shadow-lg p-4">
-
-        <div class="text-center mb-4">
-            <h2 class="fw-bold">{{ quiz.title }}</h2>
-            <p class="text-muted">{{ quiz.description }}</p>
+    <!-- Sticky Timer -->
+    <div class="sticky-top pt-4" style="z-index: 1020; text-align: right; pointer-events: none;">
+        <div class="quiz-timer-card" id="timerCard">
+            <i class="bi bi-stopwatch timer-icon"></i>
+            <div class="timer-text" id="timeDisplay">--:--</div>
         </div>
-
-        <form method="POST">
-            {% csrf_token %}
-
-            {% for question in questions %}
-                <div class="mb-4">
-                    <h5 class="fw-semibold">
-                        Q{{ forloop.counter }}. {{ question.text }}
-                        <span class="badge bg-primary">{{ question.marks }} Marks</span>
-                    </h5>
-
-                    {% for option in question.options.all %}
-                        <div class="form-check mt-2">
-                            <input class="form-check-input"
-                                   type="radio"
-                                   name="{{ question.id }}"
-                                   value="{{ option.id }}"
-                                   required>
-                            <label class="form-check-label">
-                                {{ option.text }}
-                            </label>
-                        </div>
-                    {% endfor %}
-                </div>
-                <hr>
-            {% endfor %}
-
-            <div class="text-center">
-                <button type="submit" class="btn btn-success btn-lg px-5">
-                    Submit Quiz
-                </button>
-            </div>
-
-        </form>
-
+    </div>
+    
+    <div class="quiz-header" style="margin-top: -20px;">
+        <h1>{{ quiz.title }}</h1>
+        <p class="text-secondary fs-5">{{ quiz.description }}</p>
     </div>
 
+    <form method="POST" id="quizForm">
+        {% csrf_token %}
+        
+        {% for question in questions %}
+            <div class="glass-card">
+                <div class="d-flex align-items-start mb-4">
+                    <span class="question-number">Q{{ forloop.counter }}.</span>
+                    <div class="question-text flex-grow-1">
+                        {{ question.text }}
+                    </div>
+                    <span class="marks-badge">{{ question.marks }} Marks</span>
+                </div>
+                
+                <div class="options-container ps-md-4">
+                    {% for option in question.options.all %}
+                        <label class="w-100">
+                            <input class="form-check-input" type="radio" name="{{ question.id }}" value="{{ option.id }}" required>
+                            <div class="option-card">
+                                <div class="d-flex align-items-center">
+                                    <div class="radio-circle me-3"></div>
+                                    <div class="option-text">{{ option.text }}</div>
+                                </div>
+                            </div>
+                        </label>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endfor %}
+
+        <div class="text-center mt-5 mb-5">
+            <button type="submit" class="btn-glow">
+                <i class="bi bi-send-fill me-2"></i> Submit Quiz
+            </button>
+            <p class="text-muted mt-3 small"><i class="bi bi-info-circle me-1"></i> Make sure you have answered all questions before submitting.</p>
+        </div>
+    </form>
+
 </div>
+
+<script>
+    // Initialize countdown timer
+    const totalMinutes = parseInt("{{ quiz.timer|default:10 }}", 10) || 10; // Fallback to 10 if not set
+    let totalSeconds = totalMinutes * 60;
+    
+    const timeDisplay = document.getElementById('timeDisplay');
+    const timerCard = document.getElementById('timerCard');
+    const quizForm = document.getElementById('quizForm');
+
+    function updateTimer() {
+        const minutes = Math.floor(totalSeconds / 60);
+        const seconds = totalSeconds % 60;
+        
+        // Format MM:SS
+        timeDisplay.textContent = 
+            String(minutes).padStart(2, '0') + ':' + 
+            String(seconds).padStart(2, '0');
+            
+        // Show red warning when less than 1 minute remains
+        if (totalSeconds <= 60 && totalSeconds > 0) {
+            timerCard.classList.add('timer-warning');
+        }
+        
+        // Auto-submit when time is up
+        if (totalSeconds <= 0) {
+            clearInterval(timerInterval);
+            timeDisplay.textContent = "00:00";
+            
+            // Optional: alert the user
+            alert("Time's up! Your quiz will be automatically submitted.");
+            quizForm.submit();
+        } else {
+            totalSeconds--;
+        }
+    }
+    
+    updateTimer(); // Initial call
+    const timerInterval = setInterval(updateTimer, 1000); // Update every second
+</script>
 
 </body>
 </html>
