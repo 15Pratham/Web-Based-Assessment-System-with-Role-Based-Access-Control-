@@ -140,6 +140,11 @@ def enter_quiz_code(request):
 @login_required
 def attempt_quiz(request, quiz_id):
     quiz = get_object_or_404(Quiz, id=quiz_id)
+    
+    if Attempt.objects.filter(quiz=quiz, student=request.user).exists():
+        messages.error(request, 'You have already attempted this quiz.')
+        return redirect('student_dashboard')
+
     questions = Question.objects.filter(quiz=quiz)
 
     if request.method == "POST":
@@ -199,8 +204,10 @@ def past_attempts(request):
 @login_required
 def available_quizzes(request):
     quizzes = Quiz.objects.filter(is_published=True)
+    attempted_quiz_ids = Attempt.objects.filter(student=request.user).values_list('quiz_id', flat=True)
     return render(request, 'available_quizzes.html', {
-        'quizzes': quizzes
+        'quizzes': quizzes,
+        'attempted_quiz_ids': attempted_quiz_ids
     })
 
 @login_required
