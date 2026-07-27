@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <title>{{ quiz.title }} - Coding MCQ</title>
@@ -10,24 +10,24 @@
         body { 
             margin: 0; min-height: 100vh; 
             font-family: 'Poppins', sans-serif; 
-            background-color: #0F172A; 
+            background-color: #060B18; 
             color: #F1F5F9; 
             padding-bottom: 50px;
         }
         
-        .navbar-custom { background-color: #1E293B; border-bottom: 1px solid #334155; }
+        .navbar-custom { background-color: #111827; border-bottom: 1px solid #1F2937; }
         
         .glass-card { 
-            background: #1E293B; 
+            background: #111827; 
             border-radius: 20px; 
             padding: 30px; 
             box-shadow: 0 6px 25px rgba(0,0,0,0.4); 
-            border: 1px solid #334155; 
+            border: 1px solid #1F2937; 
             margin-bottom: 30px;
         }
         
         .btn-glow { 
-            background: linear-gradient(135deg, #2563EB, #3B82F6); 
+            background: linear-gradient(135deg, #6366F1, #3B82F6); 
             border: none; 
             border-radius: 30px; 
             padding: 15px 40px; 
@@ -41,7 +41,7 @@
         }
         
         .btn-glow:hover { 
-            background: linear-gradient(135deg, #1D4ED8, #2563EB);
+            background: linear-gradient(135deg, #4F46E5, #6366F1);
             box-shadow: 0 8px 25px rgba(37, 99, 235, 0.6); 
             color: white; 
             transform: translateY(-2px);
@@ -80,7 +80,7 @@
         .option-card {
             display: block;
             padding: 16px 24px;
-            border: 1px solid #334155;
+            border: 1px solid #1F2937;
             border-radius: 14px;
             margin-top: 12px;
             cursor: pointer;
@@ -145,7 +145,7 @@
         .quiz-timer-card {
             background: rgba(30, 41, 59, 0.85);
             backdrop-filter: blur(10px);
-            border: 1px solid #334155;
+            border: 1px solid #1F2937;
             border-radius: 12px;
             padding: 12px 24px;
             display: inline-flex;
@@ -203,8 +203,8 @@
 <body>
 
 <nav class="navbar navbar-dark navbar-custom px-4 py-3">
-    <a class="navbar-brand fw-bold" href="{% url 'student_dashboard' %}">⚡ Coding MCQ</a>
-    <a href="{% url 'student_dashboard' %}" class="btn-glow" style="padding: 8px 20px; font-size: 0.95rem;">🔙 Exit Quiz</a>
+    <a class="navbar-brand fw-bold" href="{% url 'student_dashboard' %}">âš¡ Coding MCQ</a>
+    <a href="{% url 'student_dashboard' %}" class="btn-glow" style="padding: 8px 20px; font-size: 0.95rem;">ðŸ”™ Exit Quiz</a>
 </nav>
 
 <div class="container" style="max-width: 850px; position: relative;">

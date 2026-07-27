@@ -1,9 +1,9 @@
-
+﻿
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Student Dashboard — Coding MCQ</title>
+    <title>Student Dashboard â€” Coding MCQ</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Student Dashboard for Coding MCQ System">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -24,7 +24,7 @@
             --accent4: #F59E0B;
             --text-primary: #F1F5F9;
             --text-secondary: #94A3B8;
-            --text-muted: #475569;
+            --text-muted: #374151;
             --sidebar-w: 260px;
         }
 
@@ -473,7 +473,7 @@
 <!-- ===== SIDEBAR ===== -->
 <aside class="sidebar" id="sidebar">
     <div class="sidebar-brand">
-        <div class="brand-name">⚡ CodingMCQ</div>
+        <div class="brand-name">âš¡ CodingMCQ</div>
         <div class="brand-sub">Practice Platform</div>
     </div>
 
@@ -519,7 +519,7 @@
                 <i class="bi bi-list"></i>
             </button>
             <div>
-                <div class="topbar-title">Welcome back, {{ request.user.username }} 👋</div>
+                <div class="topbar-title">Welcome back, {{ request.user.username }} ðŸ‘‹</div>
                 <div class="topbar-subtitle">Here's your learning progress</div>
             </div>
         </div>
@@ -695,7 +695,7 @@
                 <!-- Tips Card -->
                 <div class="panel" style="background: linear-gradient(135deg, rgba(99,102,241,0.12), rgba(6,182,212,0.06)); border-color: rgba(99,102,241,0.2);">
                     <div class="panel-body">
-                        <div style="font-size:1.5rem; margin-bottom:10px;">💡</div>
+                        <div style="font-size:1.5rem; margin-bottom:10px;">ðŸ’¡</div>
                         <div style="font-weight:700; margin-bottom:6px; font-size:0.9rem;">Pro Tip</div>
                         <div style="font-size:0.82rem; color:var(--text-secondary); line-height:1.6;">
                             Practice consistently! Students who attempt quizzes regularly improve their scores by up to <strong style="color:#818CF8;">40%</strong> within a month.
@@ -715,7 +715,7 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content" style="border-radius:20px;">
             <div class="modal-header border-0 pb-0 pt-4 px-4">
-                <h5 class="modal-title fw-bold">🎉 Quiz Completed!</h5>
+                <h5 class="modal-title fw-bold">ðŸŽ‰ Quiz Completed!</h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body text-center px-5 py-4">
@@ -747,7 +747,7 @@
             </div>
             <div class="modal-footer border-0 justify-content-center pb-4">
                 <button type="button" class="btn-accent px-5" style="border-radius:12px; padding:12px 40px;" data-bs-dismiss="modal">
-                    Awesome! 🚀
+                    Awesome! ðŸš€
                 </button>
             </div>
         </div>
@@ -775,7 +775,7 @@
         toggle.addEventListener('click', () => sidebar.classList.toggle('open'));
     }
 
-    // Show result modal — triggered by presence of a DOM element, not a Django tag in JS
+    // Show result modal â€” triggered by presence of a DOM element, not a Django tag in JS
     document.addEventListener('DOMContentLoaded', function() {
         const modalTrigger = document.getElementById('result-modal-trigger');
         const modalEl = document.getElementById('resultModal');
@@ -785,7 +785,7 @@
         }
     });
 
-    // Performance Chart — scores read from JSON script element (no Django tags in JS)
+    // Performance Chart â€” scores read from JSON script element (no Django tags in JS)
     const ctx = document.getElementById('performanceChart');
     const scoresEl = document.getElementById('chart-scores');
     if (ctx && scoresEl) {
@@ -818,7 +818,7 @@
                 plugins: {
                     legend: { display: false },
                     tooltip: {
-                        backgroundColor: '#1E293B',
+                        backgroundColor: '#111827',
                         titleColor: '#F1F5F9',
                         bodyColor: '#94A3B8',
                         borderColor: 'rgba(255,255,255,0.1)',
@@ -855,3 +855,4 @@
 </script>
 </body>
 </html>
+

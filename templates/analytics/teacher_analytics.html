@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <title>Teacher Analytics Dashboard - Coding MCQ</title>
@@ -16,17 +16,17 @@
             margin: 0;
             min-height: 100vh;
             font-family: 'Outfit', sans-serif;
-            background-color: #0F172A;
+            background-color: #060B18;
             color: #F1F5F9;
         }
 
         .navbar-custom {
-            background-color: #1E293B;
+            background-color: #111827;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .dashboard-card {
-            background: #1E293B;
+            background: #111827;
             border-radius: 16px;
             padding: 25px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
@@ -41,7 +41,7 @@
         }
 
         .btn-primary-custom {
-            background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%);
+            background: linear-gradient(135deg, #6366F1 0%, #4F46E5 100%);
             border: none;
             border-radius: 30px;
             padding: 10px 24px;
@@ -52,13 +52,13 @@
         }
 
         .btn-primary-custom:hover {
-            background: linear-gradient(135deg, #3B82F6 0%, #2563EB 100%);
+            background: linear-gradient(135deg, #3B82F6 0%, #6366F1 100%);
             box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
             transform: translateY(-1px);
         }
 
         .btn-outline-custom {
-            border: 1.5px solid #475569;
+            border: 1.5px solid #374151;
             color: #F1F5F9;
             border-radius: 30px;
             padding: 10px 24px;
@@ -93,8 +93,8 @@
         }
 
         .dropdown-custom {
-            background-color: #1E293B;
-            border: 1.5px solid #475569;
+            background-color: #111827;
+            border: 1.5px solid #374151;
             color: #F1F5F9;
             border-radius: 12px;
             padding: 10px 16px;
@@ -110,12 +110,12 @@
         .leaderboard-table th {
             color: #94A3B8;
             font-weight: 600;
-            border-bottom: 2px solid #334155 !important;
+            border-bottom: 2px solid #1F2937 !important;
         }
 
         .leaderboard-table td {
             vertical-align: middle;
-            border-bottom: 1px solid #334155 !important;
+            border-bottom: 1px solid #1F2937 !important;
         }
 
         .badge-rank {
@@ -128,10 +128,10 @@
             font-weight: 700;
         }
 
-        .badge-1 { background-color: #F59E0B; color: #1E293B; }
-        .badge-2 { background-color: #94A3B8; color: #1E293B; }
+        .badge-1 { background-color: #F59E0B; color: #111827; }
+        .badge-2 { background-color: #94A3B8; color: #111827; }
         .badge-3 { background-color: #B45309; color: #FFFFFF; }
-        .badge-other { background-color: #475569; color: #F1F5F9; }
+        .badge-other { background-color: #374151; color: #F1F5F9; }
     </style>
 </head>
 
@@ -303,7 +303,7 @@
     Chart.defaults.font.weight = 500;
     Chart.defaults.plugins.tooltip.padding = 12;
     Chart.defaults.plugins.tooltip.cornerRadius = 8;
-    Chart.defaults.plugins.tooltip.backgroundColor = '#0F172A';
+    Chart.defaults.plugins.tooltip.backgroundColor = '#060B18';
     Chart.defaults.plugins.tooltip.borderColor = 'rgba(255, 255, 255, 0.1)';
     Chart.defaults.plugins.tooltip.borderWidth = 1;
 
@@ -455,7 +455,7 @@
             datasets: [{
                 data: quizStatsData.map(d => d.avgPercentage),
                 backgroundColor: chartColors.slice(0, quizStatsData.length),
-                borderColor: '#1E293B',
+                borderColor: '#111827',
                 borderWidth: 2,
                 hoverOffset: 12
             }]
@@ -491,3 +491,4 @@
 
 </body>
 </html>
+
