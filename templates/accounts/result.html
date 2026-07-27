@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <title>Your Results - Coding MCQ System</title>
@@ -21,7 +21,7 @@
 <body>
     <div class="result-card">
         <div class="mb-4">
-            <span style="font-size: 3rem;">ðŸŽ‰</span>
+            <span style="font-size: 3rem;">🎉</span>
             <h2 class="fw-bold mt-2">Quiz Completed!</h2>
             <p style="color: #94A3B8;">Results for: <strong>{{ attempt.quiz.title }}</strong></p>
         </div>
@@ -35,8 +35,7 @@
             <div class="stat-item"><div class="stat-label">Questions</div><div class="stat-value">{{ attempt.quiz.question_set.count }}</div></div>
             <div class="stat-item"><div class="stat-label">Global Rank</div><div class="stat-value" style="color: #FBBF24;">#{{ attempt.rank }}</div></div>
         </div>
-        <a href="{% url 'student_dashboard' %}" class="btn-glow">ðŸ”™ Back to Dashboard</a>
+        <a href="{% url 'student_dashboard' %}" class="btn-glow">🔙 Back to Dashboard</a>
     </div>
 </body>
 </html>
-

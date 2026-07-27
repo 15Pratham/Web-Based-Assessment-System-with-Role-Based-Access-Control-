@@ -167,8 +167,12 @@ def student_dashboard(request):
 @login_required
 def analytics_page(request):
 
-    quizzes = Quiz.objects.filter(created_by=request.user)
-    attempts = Attempt.objects.filter(quiz__in=quizzes)
+    if request.user.role == 'student':
+        attempts = Attempt.objects.filter(student=request.user)
+        quizzes = Quiz.objects.filter(id__in=attempts.values_list('quiz', flat=True))
+    else:
+        quizzes = Quiz.objects.filter(created_by=request.user)
+        attempts = Attempt.objects.filter(quiz__in=quizzes)
 
     total_quizzes = quizzes.count()
     total_attempts = attempts.count()
@@ -185,14 +189,14 @@ def analytics_page(request):
     data = []
 
     for quiz in quizzes:
-        avg = Attempt.objects.filter(quiz=quiz).aggregate(
+        avg = attempts.filter(quiz=quiz).aggregate(
             Avg('percentage')
         )['percentage__avg']
 
         labels.append(quiz.title)
         data.append(round(avg, 2) if avg else 0)
 
-    bar_chart_path = os.path.join(settings.MEDIA_ROOT, "bar_chart.png")
+    bar_chart_path = os.path.join(settings.MEDIA_ROOT, f"bar_chart_{request.user.id}.png")
 
     if quizzes.exists():
         plt.figure(figsize=(6,4))
@@ -209,7 +213,7 @@ def analytics_page(request):
     pass_count = attempts.filter(percentage__gte=40).count()
     fail_count = attempts.filter(percentage__lt=40).count()
 
-    pie_chart_path = os.path.join(settings.MEDIA_ROOT, "pie_chart.png")
+    pie_chart_path = os.path.join(settings.MEDIA_ROOT, f"pie_chart_{request.user.id}.png")
 
     if total_attempts > 0:
         plt.figure(figsize=(5,5))
