@@ -16,9 +16,17 @@ A comprehensive, full-stack assessment platform built with Django. This applicat
 
 ## 📸 Screenshots
 
-*(Placeholder: Add screenshots of your Student Dashboard, Teacher Quiz Creation page, and Analytics page here)*
-<br>
-![Screenshot Placeholder](https://via.placeholder.com/800x400.png?text=Add+Project+Screenshots+Here)
+### Teacher Dashboard
+![Teacher Dashboard](screenshots/teacher_dashboard.png)
+
+### Create Quiz Interface
+![Create Quiz](screenshots/teacher_create_quiz.png)
+
+### Student Dashboard
+![Student Dashboard](screenshots/student_dashboard.png)
+
+### Analytics Dashboard
+![Analytics Dashboard](screenshots/teacher_analytics.png)
 
 ## 🛠️ Tech Stack
 

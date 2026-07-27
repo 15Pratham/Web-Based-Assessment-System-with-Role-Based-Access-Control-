@@ -14,7 +14,7 @@ def teacher_analytics(request):
 
     # Get all quizzes created by this teacher
     quizzes = Quiz.objects.filter(created_by=request.user)
-    
+
     # Get all student attempts on these quizzes
     attempts = Attempt.objects.filter(quiz__in=quizzes)
 
@@ -64,7 +64,7 @@ def teacher_analytics(request):
         avg_percentage=Avg('percentage'),
         attempts_count=Count('id')
     ).order_by('-avg_percentage')[:5]
-    
+
     context = {
         'quizzes': quizzes,
         'selected_quiz': selected_quiz,
